@@ -1,0 +1,832 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Strict//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-strict.dtd">
+<html>
+
+<head>
+  <title>{{ identificacao }}</title>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+</head>
+
+<body>
+  <style>
+    @media screen,
+    print {
+      /* *** TIPOGRAFIA BASICA *** */
+      
+      * {
+        font-family: Arial;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+      .notice {
+        color: red;
+      }
+      /* *** LINHAS GERAIS *** */
+      
+      #container {
+        width: 666px;
+        margin: 0px auto;
+        padding-bottom: 30px;
+      }
+      #instructions {
+        margin: 0;
+        padding: 0 0 20px 0;
+      }
+      #boleto {
+        width: 666px;
+        margin: 0;
+        padding: 0;
+      }
+      /* *** CABECALHO *** */
+      
+      #instr_header {
+        background: url('{{ logo_empresa|logoBase64 }}') no-repeat top left;
+        background-size: 85px 40px;
+        background-position-y: 10px;
+        padding-left: 90px;
+      }
+      #instr_header h1 {
+        font-size: 16px;
+        margin: 5px 0px;
+      }
+      #instr_header address {
+        font-style: normal;
+      }
+      #instr_content {
+        position: relative;
+      } 
+      #instr_content h2 {
+        font-size: 10px;
+        font-weight: bold;
+      }
+      #instr_content p {
+        font-size: 10px;
+        margin: 4px 0px;
+      }
+      #instr_content ol {
+        font-size: 10px;
+        margin: 5px 0;
+      }
+      #instr_content ol li {
+        font-size: 10px;
+        text-indent: 10px;
+        margin: 2px 0px;
+        list-style-position: inside;
+      }
+      #instr_content ol li p {
+        font-size: 10px;
+        padding-bottom: 4px;
+      }
+
+      #instr_content .qrcode {
+        width: 666px;
+        height:150px;
+        margin: 0px auto;
+        border-top: 1px black dashed;
+        font-weight: bold;
+        position: relative;
+      }
+
+      #instr_content .qrcode .img_container {
+        height:150px; 
+        width: 150px;
+        right:0; 
+        top:0; 
+        position:absolute;
+      }
+
+      #instr_content .qrcode .img_container .img {
+        height:150px;
+      }
+
+      #instr_content .qrcode .description {
+        font-size:15px; 
+        text-align: right; 
+        top: 10px; 
+        right: 190px; 
+        position: absolute;
+      }
+
+      #instr_content .qrcode .description .title{
+        font-size: 18px; 
+        padding-bottom: 15px;
+      }
+
+      #instr_content .qrcode .description .valueTitle{
+        font-size: 15px; 
+        padding-bottom: 6px;
+      }
+
+      #instr_content .qrcode .description .value{
+        font-size: 20px;
+      }
+      /* *** BOLETO *** */
+      
+      #boleto .cut {
+        width: 666px;
+        margin: 0px auto;
+        border-bottom: 1px black dashed;
+      }
+      #boleto .cut p {
+        margin: 0 0 0px 0;
+        padding: 0px;
+        font-family: 'Arial Narrow';
+        font-size: 9px;
+        color: black;
+      }
+      table.header {
+        width: 666px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        border-bottom: 2px black solid;
+      }
+      table.header div.field_cod_banco {
+        width: 50px;
+        height: 26px;
+        line-height: 24px;
+        margin-left: 5px;
+        padding-top: 3px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: black;
+        border-right: 2px solid black;
+        border-left: 2px solid black;
+      }
+      table.header td.linha_digitavel {
+        width: 470px;
+        text-align: right;
+        font: bold 15px Arial;
+        color: black
+      }
+      table.line {
+        border-bottom: 1px black solid;
+      }
+      table.line tr.titulos td {
+        height: 13px;
+        font-family: 'Arial Narrow';
+        font-size: 9px;
+        color: black;
+        border-left: 1px black solid;
+        padding-left: 2px;
+      }
+      table.line tr.campos td, span.campos {
+        height: 12px;
+        font-size: 10px;
+        color: black;
+        border-left: 1px black solid;
+        padding-left: 2px;
+      }
+      span.campos {
+        border: none;
+      }
+      table.line td p {
+        font-size: 10px;
+      }
+      table.line tr.campos td.especie,
+      table.line tr.campos td.qtd,
+      table.line tr.campos td.vencimento,
+      table.line tr.campos td.especie_doc,
+      table.line tr.campos td.aceite,
+      table.line tr.campos td.carteira,
+      table.line tr.campos td.qtd {
+        text-align: center;
+      }
+      table.line td.last_line {
+        vertical-align: top;
+        height: 25px;
+      }
+      table.line td.last_line table.line {
+        margin-bottom: -5px;
+        border: 0 white none;
+      }
+      td.last_line table.line td.instrucoes {
+        border-left: 0 white none;
+        padding-left: 5px;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        height: 20px;
+        vertical-align: top;
+      }
+      table.line td.instrucoes {
+        width: 479px;
+      }
+      table.line td.sacado2 {
+        width: 663px;
+      }
+      table.line td.sacador_avalista {
+        width: 663px;
+      }
+      table.line tr.campos td.sacador_avalista {
+        width: 476px;
+      }
+      table.line td.cod_baixa {
+        color: black;
+        width: 184px;
+      }
+      td.footer {
+        font-family: 'Arial Narro';
+        font-size: 9px;
+        color: black;        
+      }
+      table.line.demonstrativo {
+        margin-bottom: 15px;
+        border-bottom: none;
+      }
+      div.footer {
+        margin-bottom: 15px;
+      }
+      div.footer p {
+        width: 88px;
+        margin: 0;
+        padding: 0;
+        padding-left: 525px;
+        font-family: 'Arial Narro';
+        font-size: 9px;
+        color: black;
+      }
+      div.barcode {
+        width: 666px;
+        margin-top: 1rem;
+        margin-bottom: 15px;
+      }
+
+      .end {
+        padding-right: 5px;
+      }
+
+      .campos .end {
+        text-align: right;
+      }
+
+      /* Grid */
+      .col_1_of_18 {
+        width: 34px;
+      }
+      .col_1_of_18.end {
+        width: 29px;
+      }
+      .col_2_of_18 {
+        width: 71px;
+      }
+      .col_2_of_18.end {
+        width: 66px;
+      }
+      .col_3_of_18 {
+        width: 108px;
+      }
+      .col_3_of_18.end {
+        width: 103px;
+      }
+      .col_4_of_18 {
+        width: 145px;
+      }
+      .col_4_of_18.end {
+        width: 140px;
+      }
+      .col_5_of_18 {
+        width: 182px;
+      }
+      .col_5_of_18.end {
+        width: 177px;
+      }
+      .col_6_of_18 {
+        width: 219px;
+      }
+      .col_6_of_18.end {
+        width: 214px;
+      }
+      .col_7_of_18 {
+        width: 256px;
+      }
+      .col_7_of_18.end {
+        width: 251px;
+      }
+      .col_8_of_18 {
+        width: 293px;
+      }
+      .col_8_of_18.end {
+        width: 288px;
+      }
+      .col_9_of_18 {
+        width: 330px;
+      }
+      .col_9_of_18.end {
+        width: 325px;
+      }
+      .col_10_of_18 {
+        width: 367px;
+      }
+      .col_10_of_18.end {
+        width: 362px;
+      }
+      .col_11_of_18 {
+        width: 404px;
+      }
+      .col_11_of_18.end {
+        width: 399px;
+      }
+      .col_12_of_18 {
+        width: 441px;
+      }
+      .col_12_of_18.end {
+        width: 436px;
+      }
+      .col_13_of_18 {
+        width: 478px;
+      }
+      .col_13_of_18.end {
+        width: 473px;
+      }
+      .col_14_of_18 {
+        width: 515px;
+      }
+      .col_14_of_18.end {
+        width: 510px;
+      }
+      .col_15_of_18 {
+        width: 552px;
+      }
+      .col_15_of_18.end {
+        width: 547px;
+      }
+      .col_16_of_18 {
+        width: 589px;
+      }
+      .col_16_of_18.end {
+        width: 584px;
+      }
+      .col_17_of_18 {
+        width: 626px;
+      }
+      .col_17_of_18.end {
+        width: 621px;
+      }
+      .col_18_of_18 {
+        width: 663px;
+      }
+      .col_18_of_18.end {
+        width: 658px;
+      }
+    }
+    @media print {
+      #instructions {
+        height: 1px;
+        visibility: hidden;
+        overflow: hidden;
+      }
+    }
+  </style>
+  {% block head %}{% endblock %}
+  </head>
+
+  <body>
+
+    <div id="container">
+
+      <div id="instr_header">
+        <h1>{{ identificacao }} {{ cpf_cnpj }}</h1>
+        <address>{{ endereco }}<br></address>
+        <address>{{ cidade_uf }}</address>
+      </div>
+      <div>
+        <div id="instr_content">
+          {% block instr %}
+          <p>
+            O pagamento deste boleto tamb&eacute;m poder&aacute; ser efetuado nos terminais de Auto-Atendimento BB.
+          </p>
+
+          <h2>Instru&ccedil;&otilde;es</h2>
+          <ol>
+            <li>
+              Imprima em impressora jato de tinta (ink jet) ou laser, em qualidade normal ou alta. N&atilde;o use modo econ&ocirc;mico.
+            </li>
+            <li>
+              Utilize folha A4 (210 x 297 mm) ou Carta (216 x 279 mm) e margens m&iacute;nimas &agrave; esquerda e &agrave; direita do formul&aacute;rio.
+            </li>
+            <li>
+              Corte na linha indicada. N&atilde;o rasure, risque, fure ou dobre a regi&atilde;o onde se encontra o c&oacute;digo de barras
+            </li>
+          </ol>
+          <div class="qrcode">
+            <div class="img_container">
+              <img src="{{ pix_qrcode|qrCode }}" class="img">
+            </div>
+            <div class="description">
+              <div class="title">Pague esta cobrança com PIX</div>
+              <div class="valueTitle">Valor do documento</div>
+              <div class="value">R$ {{ valor_boleto }}</div>
+            </div>
+          </div>
+          {% endblock %}
+        </div>
+        <!-- id="instr_content" -->
+      </div>
+      <!-- id="instructions" -->
+
+      <div id="boleto">
+        {% block boleto %}
+        <div class="cut">
+          <p>Corte na linha pontilhada</p>
+        </div>
+        <table cellspacing=0 cellpadding=0>
+          <tbody>
+            <tr>
+              <td align=right style="width:666px">
+                  <b>Recibo do {{texto_sacado}}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {% block recibo_header %}
+        <table class="header" border=0 cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr>
+              <td style="width:131px" valign="bottom">
+                <img src="{{ logo_banco|imageUrl }}" height="30">
+              </td>
+              <td style="width:50px">
+                <div class="field_cod_banco">{{ codigo_banco_com_dv }}</div>
+              </td>
+              <td class="linha_digitavel">{{ linha_digitavel }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block recibo_linha1 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="col_9_of_18">{{texto_cedente}}</td>
+              <td class="col_2_of_18">Esp&eacute;cie</td>
+              <td class="col_2_of_18">Quantidade</td>
+              <td class="end col_5_of_18">Nosso n&uacute;mero</td>
+            </tr>
+
+            <tr class="campos">
+              <td>{{ cedente }}&nbsp;</td>
+              <td class="especie">{{ especie }}&nbsp;</td>
+              <td class="quantidade">{{ quantidade }}&nbsp;</td>
+              <td class="end">{{ nosso_numero }}&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block recibo_linha2 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="col_13_of_18">Endereço</td>
+              <td class="end col_5_of_18">Agência / Código do {{texto_cedente}}</td>
+            </tr>
+
+            <tr class="campos">
+              <td>{{ endereco }} - {{ cidade_uf }}</td>
+              <td class="end">{{ agencia_codigo }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block recibo_linha3 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="col_5_of_18">N&uacute;mero do documento</td>
+              <td class="col_2_of_18">Contrato</td>
+              <td class="col_3_of_18">CPF/CEI/CNPJ</td>
+              <td class="col_3_of_18">Vencimento</td>
+              <td class="end col_5_of_18">Valor documento</td>
+            </tr>
+            <tr class="campos">
+              <td>{{ numero_documento }}</td>
+              <td>{{ contrato }}</td>
+              <td>{{ cpf_cnpj }}</td>
+              <td>{{ data_vencimento }}</td>
+              <td class="end">{{ valor_boleto }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block recibo_linha4 %}
+        {% endblock %}
+
+        {% block recibo_linha5 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="col_4_of_18">(-) Desconto / Abatimento</td>
+              <td class="col_3_of_18">(-) Outras dedu&ccedil;&otilde;es</td>
+              <td class="col_3_of_18">(+) Mora / Multa</td>
+              <td class="col_3_of_18">(+) Outros acr&eacute;scimos</td>
+              <td class="valor_cobrado end col_5_of_18">(=) Valor cobrado</td>
+            </tr>
+            <tr class="campos">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td class="valor_cobrado end">&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block recibo_linha6 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="col_18_of_18">{{texto_sacado}}</td>
+            </tr>
+            <tr class="campos">
+              <td>{{ sacado }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block recibo_linha_7 %}
+        {% endblock %}
+
+        <table class="line demonstrativo" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="footer col_13_of_18">
+              {% if exibir_demonstrativo_no_recibo %}
+                Demostrativo
+              {% endif %}
+            </td>
+            <td class="footer col_5_of_18" align="right">Autentica&ccedil;&atilde;o mec&acirc;nica</td>
+          </tr>
+          {% if exibir_demonstrativo_no_recibo %}
+          <tr>
+            <td>
+              <p>{{ demonstrativo1 }}</p>
+              <p>{{ demonstrativo2 }}</p>
+              <p>{{ demonstrativo3 }}</p>
+            </td>
+          </tr>
+          {% endif %}
+        </table>
+
+        {% block recibo_linha_8 %}
+        {% endblock %}
+
+        <div class="cut">
+          <p>Corte na linha pontilhada</p>
+        </div>
+
+        {% block ficha_header %}
+        <table class="header" border=0 cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr>
+              <td style="width:131px" valign="bottom">
+                <img src="{{ logo_banco|imageUrl }}" height="30">
+              </td>
+              <td width=50>
+                <div class="field_cod_banco">{{ codigo_banco_com_dv }}</div>
+              </td>
+              <td class="linha_digitavel">{{ linha_digitavel }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block ficha_linha1 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="col_13_of_18">Local de pagamento</td>
+              <td class="vencimento2 end col_5_of_18">Vencimento</td>
+            </tr>
+            <tr class="campos">
+              <td>QUALQUER BANCO AT&Eacute; O VENCIMENTO</td>
+              <td class="vencimento2 end">{{ data_vencimento }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block ficha_linha2 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="col_13_of_18">{{texto_cedente}}</td>
+              <td class="col_5_of_18">Agência/Código do {{texto_cedente}}</td>
+            </tr>
+            <tr class="campos">
+              <td>{{ cedente }}</td>
+              <td class="end">{{ agencia_codigo }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block ficha_linha3 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="col_4_of_18">Data do documento</td>
+              <td class="col_4_of_18">No. documento</td>
+              <td class="col_2_of_18">Esp&eacute;cie doc.</td>
+              <td class="col_1_of_18">Aceite</td>
+              <td class="col_2_of_18">Data process.</td>
+              <td class="end col_5_of_18">Nosso n&uacute;mero</td>
+            </tr>
+            <tr class="campos">
+              <td>{{ data_documento }}</td>
+              <td>{{ numero_documento }}</td>
+              <td class="especie_doc">{{ especie_doc }}</td>
+              <td class="aceite">{{ aceite }}</td>
+              <td>{{ data_processamento }}</td>
+              <td class="end">{{ nosso_numero }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block ficha_linha4 %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="reservado col_3_of_18">Uso do banco</td>
+              <td class="col_3_of_18">Carteira</td>
+              <td class="col_2_of_18">Espécie</td>
+              <td class="col_3_of_18">Quantidade</td>
+              <td class="col_2_of_18">{{texto_valor_unitario}}</td>
+              <td class="end col_5_of_18">(=) Valor documento</td>
+            </tr>
+            <tr class="campos">
+              <td class="reservado">&nbsp;</td>
+              <td class="carteira">
+                {{ carteira }} {% if variacao_carteira %} - {{variacao_carteira }} {% endif %}
+              </td>
+              <td class="especie">{{ especie }}</td>
+              <td>{{ quantidade }}</td>
+              <td>{{ valor_unitario }}</td>
+              <td class="end">{{ valor_boleto }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block ficha_linha_5 %}
+        {% endblock %}
+
+        {% block ficha_instrucoes %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr>
+              <td class="last_line" rowspan="6">
+                <table class="line" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr class="titulos">
+                      <td class="instrucoes">
+                        Instru&ccedil;&otilde;es (Instruções de responsabilidade do beneficiário. Qualquer dúvida sobre este boleto, contate o beneficiário)
+                      </td>
+                    </tr>
+                    <tr class="campos">
+                      <td class="instrucoes" rowspan="5">
+                        {% if exibir_demonstrativo_na_ficha %}
+                        <p>{{ demonstrativo1 }}</p>
+                        <p>{{ demonstrativo2 }}</p>
+                        <p>{{ demonstrativo3 }}</p>
+                        {% endif %}
+                        <p>{{ instrucoes1 }}</p>
+                        <p>{{ instrucoes2 }}</p>
+                        <p>{{ instrucoes3 }}</p>
+                        <p>{{ instrucoes4 }}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <table class="line" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr class="titulos">
+                      <td class="end col_5_of_18">(-) Desconto / Abatimento</td>
+                    </tr>
+                    <tr class="campos">
+                      <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <table class="line" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr class="titulos">
+                      <td class="end col_5_of_18">(-) Outras dedu&ccedil;&otilde;es</td>
+                    </tr>
+                    <tr class="campos">
+                      <td class="end">&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <table class="line" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr class="titulos">
+                      <td class="end col_5_of_18">(+) Mora / Multa</td>
+                    </tr>
+                    <tr class="campos">
+                      <td class="end">&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <table class="line" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr class="titulos">
+                      <td class="end col_5_of_18">(+) Outros Acr&eacute;scimos</td>
+                    </tr>
+                    <tr class="campos">
+                      <td class="end">&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="last_line">
+                <table class="line" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr class="titulos">
+                      <td class="valor_cobrado2 end col_5_of_18">(=) Valor cobrado</td>
+                    </tr>
+                    <tr class="campos">
+                      <td class="valor_cobrado2 end">&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        {% block ficha_sacado %}
+        <table class="line" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr class="titulos">
+              <td class="sacado2">{{texto_sacado}}</td>
+            </tr>
+            <tr class="campos">
+              <td class="sacado2">
+                <p>{{ sacado }} - {{sacado_tipo_documento|default("CPF")}}: {{sacado_documento}}
+                <p>{{ endereco1 }}</p>
+                <p>{{ endereco2 }}</p>
+              </td>
+            </tr>
+            <tr class="titulos">
+              <td class="sacado_avalista">
+                Sacador/Avalista
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        {% endblock %}
+
+        <table cellspacing=0 cellpadding=0>
+          <tbody>
+            <tr>
+              <td style="width:666px; position: absolute;" align=right>
+                <font style="font-size: 10px;">
+            Autentica&ccedil;&atilde;o mec&acirc;nica - Ficha de Compensação
+          </font>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="barcode">
+          <p>{{ codigo_barras|barcode }}</p>
+        </div>
+        <div class="cut">
+          <p>Corte na linha pontilhada</p>
+        </div>        
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,30 @@
+{
+    "name": "kkelf/bbboletocobranca",
+    "description": "Boleto Banco do Brasil",
+    "license": "LGPL",
+    "authors": [{
+       "name": "Kleber Kelf",
+       "email": "kleberkelf@gmail.com"
+    }],
+    "require": {
+    	"php": ">=7.0",
+        "twig/twig": "^2.15",
+        "dompdf/dompdf": "^1.2.2",
+        "guzzlehttp/guzzle": "~6.0",
+        "illuminate/contracts": "^5.1",
+        "nesbot/carbon": "^2.62.",
+        "illuminate/support": "^5.1",
+        "league/fractal": "^0.17.0",
+        "chillerlan/php-qrcode": "^4.3"
+    },
+    "autoload": {
+    	"psr-4": {
+      		"BBboletoCobranca\\": "src/"
+    	}
+  	},
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
+}
