@@ -12,6 +12,7 @@ use BBboletoCobranca\Services\ServiceRegister;
 use BBboletoCobranca\Services\ServiceLayoutBoleto;
 use BBboletoCobranca\Transformers\BoletoTransformer;
 use BBboletoCobranca\Validates\BancoDoBrasilValidate;
+use Illuminate\Support\Arr;
 
 /**
  * Class BancoDoBrasil
@@ -54,16 +55,16 @@ class BancoDoBrasil
 	{
     	$serviveRegister = new ServiceRegister();
     	$boleto = $serviveRegister->register($boletoRequest, $this->authorization);
-    	$boleto->setLogo(array_get($this->config, 'logo', 'http://placehold.it/200&text=logo'));
+    	$boleto->setLogo(Arr::get($this->config, 'logo', 'http://placehold.it/200&text=logo'));
 
     	if(!$boleto instanceof BoletoResponse)
     		throw new BoletoException("Não foi possivel gerar boleto");
 
     	$data = null;
-    	if(array_get($this->config, 'formato') == Formato::PDF) 
+    	if(Arr::get($this->config, 'formato') == Formato::PDF) 
     		$data = (new ServiceLayoutBoleto)->dataToPdf($boleto);
 
-    	if(array_get($this->config, 'formato') == Formato::HTML) 
+    	if(Arr::get($this->config, 'formato') == Formato::HTML) 
     		$data = (new ServiceLayoutBoleto)->dataToHtml($boleto);
 
 		return $data;

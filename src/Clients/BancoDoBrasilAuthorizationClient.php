@@ -5,6 +5,7 @@ namespace BBboletoCobranca\Clients;
 
 use BBboletoCobranca\Exceptions\OAuthException;
 use GuzzleHttp\Client;
+use Illuminate\Support\Arr;
 
 /**
  * Class BancoDoBrasilAuthorizationClient
@@ -38,9 +39,9 @@ class BancoDoBrasilAuthorizationClient
 	{
 		$this->httpClient = new Client(['verify' => false]); //Remover o verify em produção
 
-		$this->clientId = array_get($config, 'clientId', null);
-		$this->clientSecret = array_get($config, 'clientSecret', null);
-		$this->oAuthUrl = array_get($config, 'production', false) == false? self::OAUTH_HM : self::OAUTH_PRODUCTION;
+		$this->clientId = Arr::get($config, 'clientId', null);
+		$this->clientSecret = Arr::get($config, 'clientSecret', null);
+		$this->oAuthUrl = Arr::get($config, 'production', false) == false? self::OAUTH_HM : self::OAUTH_PRODUCTION;
 	}
 
     /**

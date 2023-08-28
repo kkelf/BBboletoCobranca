@@ -11,9 +11,9 @@
         "twig/twig": "^2.15",
         "dompdf/dompdf": "^1.2.2",
         "guzzlehttp/guzzle": "^7.0",
-        "illuminate/contracts": "^5.1",
+        "illuminate/contracts": "^9.1",
         "nesbot/carbon": "^2.62.",
-        "illuminate/support": "^5.1",
+        "illuminate/support": "^9.1",
         "league/fractal": "^0.17.0",
         "chillerlan/php-qrcode": "^4.3"
     },
