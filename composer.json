@@ -1,7 +1,7 @@
 {
     "name": "kkelf/bbboletocobranca",
     "description": "Boleto Banco do Brasil",
-    "license": "LGPL",
+    "license": "LGPL-3.0-only",
     "authors": [{
        "name": "Kleber Kelf",
        "email": "kleberkelf@gmail.com"
