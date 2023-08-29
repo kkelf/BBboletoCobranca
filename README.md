@@ -19,7 +19,6 @@ Ou no arquivo composer.json.
 ```
 ## Como usar
 ```php
-require '../vendor/autoload.php';
 
 use BBboletoCobranca\BancoDoBrasil;
 use BBboletoCobranca\Constants\IndicadorPix;

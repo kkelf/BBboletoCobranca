@@ -56,7 +56,7 @@ class ServiceLayoutBoleto
 		try {
 			$factory = new BoletoFactory([
 	            'cachePath' => '/tmp',
-	            'imageUrl' => "../resources/images"
+	            'imageUrl' => dirname(__DIR__, 2)."/resources/images"
 	        ]);
 
           	$html = $factory->makeBoletoAsHTML(BoletoFactory::BANCO_DO_BRASIL, $data);
@@ -75,7 +75,7 @@ class ServiceLayoutBoleto
 		try {
 			$factory = new BoletoFactory([
 	            'cachePath' => '/tmp',
-	            'imageUrl' => "../resources/images"
+	            'imageUrl' => dirname(__DIR__, 2)."/resources/images"
 	        ]);
 
 	      	$factory->makeBoletoAsPDF(BoletoFactory::BANCO_DO_BRASIL, $data);
