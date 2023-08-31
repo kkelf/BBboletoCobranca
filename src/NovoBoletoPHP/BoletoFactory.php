@@ -88,7 +88,9 @@ class BoletoFactory {
 
     public function makeQrCode($string)
     {
-        return (new QRCode)->render($string);
+        if ($string) {
+            return (new QRCode)->render($string);
+        }
     }
 
     public function makeImageUrl($imageName)

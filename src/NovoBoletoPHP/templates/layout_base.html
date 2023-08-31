@@ -410,6 +410,7 @@
               Corte na linha indicada. N&atilde;o rasure, risque, fure ou dobre a regi&atilde;o onde se encontra o c&oacute;digo de barras
             </li>
           </ol>
+          {% if pix_qrcode %}
           <div class="qrcode">
             <div class="img_container">
               <img src="{{ pix_qrcode|qrCode }}" class="img">
@@ -420,6 +421,7 @@
               <div class="value">R$ {{ valor_boleto }}</div>
             </div>
           </div>
+          {% endif %}
           {% endblock %}
         </div>
         <!-- id="instr_content" -->
