@@ -35,7 +35,7 @@ class BoletoFactory
 
 		if ($boletoRequest->getDesconto() instanceof DescontoEntity)
 			$this->addParameter($data, 'desconto', $this->setDescontoOnBody($boletoRequest->getDesconto()), 'N');
-		
+
 		$this->addParameter($data, 'quantidadeDiasProtesto', $boletoRequest->getDiasProtesto(), 'Y');
 
 		if ($boletoRequest->getJuros() instanceof JurosEntity)
@@ -71,9 +71,9 @@ class BoletoFactory
 	 * @return mixed
 	 */
 	private function addParameter(
-		array &$data, 
-		string $name, 
-		mixed $value, 
+		array &$data,
+		string $name,
+		mixed $value,
 		string $required
 	) {
 		if ($value || $required === 'Y') {
@@ -91,10 +91,21 @@ class BoletoFactory
 	{
 		$dataDesconto = [];
 
-		$this->addParameter($dataDesconto, 'tipo', $descontoEntity->getTipo(), 'Y');
-		$this->addParameter($dataDesconto, 'dataExpiracao', $descontoEntity->getData()->format('d.m.Y'), 'Y');
-		$this->addParameter($dataDesconto, 'porcentagem', $descontoEntity->getPercentual(), 'Y');
-		$this->addParameter($dataDesconto, 'valor', BancoDoBrasilHelper::formatMoney($descontoEntity->getValor()), 'Y');
+		if ($descontoEntity->getTipo()) {
+			$this->addParameter($dataDesconto, 'tipo', $descontoEntity->getTipo(), 'Y');
+		}
+
+		if ($descontoEntity->getData()) {
+			$this->addParameter($dataDesconto, 'dataExpiracao', $descontoEntity->getData()->format('d.m.Y'), 'Y');
+		}
+
+		if ($descontoEntity->getPercentual()) {
+			$this->addParameter($dataDesconto, 'porcentagem', $descontoEntity->getPercentual(), 'Y');
+		}
+
+		if ($descontoEntity->getValor()) {
+			$this->addParameter($dataDesconto, 'valor', BancoDoBrasilHelper::formatMoney($descontoEntity->getValor()), 'Y');
+		}
 
 		return $dataDesconto;
 	}
@@ -107,9 +118,17 @@ class BoletoFactory
 	{
 		$dataJuros = [];
 
-		$this->addParameter($dataJuros, 'tipo', $jurosEntity->getTipo(), 'Y');
-		$this->addParameter($dataJuros, 'porcentagem', $jurosEntity->getPercentual(), 'Y');
-		$this->addParameter($dataJuros, 'valor', BancoDoBrasilHelper::formatMoney($jurosEntity->getValor()), 'Y');
+		if ($jurosEntity->getTipo()) {
+			$this->addParameter($dataJuros, 'tipo', $jurosEntity->getTipo(), 'Y');
+		}
+
+		if ($jurosEntity->getPercentual()) {
+			$this->addParameter($dataJuros, 'porcentagem', $jurosEntity->getPercentual(), 'Y');
+		}
+
+		if ($jurosEntity->getValor()) {
+			$this->addParameter($dataJuros, 'valor', BancoDoBrasilHelper::formatMoney($jurosEntity->getValor()), 'Y');
+		}
 
 		return $dataJuros;
 	}
@@ -122,10 +141,21 @@ class BoletoFactory
 	{
 		$dataMulta = [];
 
-		$this->addParameter($dataMulta, 'tipo', $multaEntity->getTipo(), 'Y');
-		$this->addParameter($dataMulta, 'data', $multaEntity->getData()->format('d.m.Y'), 'Y');
-		$this->addParameter($dataMulta, 'porcentagem', $multaEntity->getPercentual(), 'Y');
-		$this->addParameter($dataMulta, 'valor', BancoDoBrasilHelper::formatMoney($multaEntity->getValor()), 'Y');
+		if ($multaEntity->getTipo()) {
+			$this->addParameter($dataMulta, 'tipo', $multaEntity->getTipo(), 'Y');
+		}
+
+		if ($multaEntity->getData()) {
+			$this->addParameter($dataMulta, 'data', $multaEntity->getData()->format('d.m.Y'), 'Y');
+		}
+
+		if ($multaEntity->getPercentual()) {
+			$this->addParameter($dataMulta, 'porcentagem', $multaEntity->getPercentual(), 'Y');
+		}
+
+		if ($multaEntity->getValor()) {
+			$this->addParameter($dataMulta, 'valor', BancoDoBrasilHelper::formatMoney($multaEntity->getValor()), 'Y');
+		}
 
 		return $dataMulta;
 	}
