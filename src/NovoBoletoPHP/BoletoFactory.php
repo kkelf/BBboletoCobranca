@@ -21,7 +21,7 @@ class BoletoFactory {
         $templatePath = $basePath . '/templates';
         $this->imageUrl = array_key_exists('imageUrl', $config) ?
                           $config['imageUrl'] :
-                          '/images';
+                          dirname(__DIR__, 1).'/NovoBoletoPHP/images';
         $cachePath = array_key_exists('cachePath', $config) ?
                      $config['cachePath'] :
                      $basePath . '/cache';
@@ -75,7 +75,7 @@ class BoletoFactory {
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4');
         $dompdf->render();
-        $dompdf->stream();
+        return $dompdf->output();
     }
 
     public function toBase64($path)

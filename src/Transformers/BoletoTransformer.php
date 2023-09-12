@@ -63,9 +63,11 @@ class BoletoTransformer extends Fractal\TransformerAbstract
             'identificacao' => $boletoResponse->getNomeBeneficiario(),
             'cpf_cnpj' => BancoDoBrasilHelper::formatCnpj($boletoResponse->getDocumento()),
             'endereco' => $boletoResponse->getEndereco(),
-            'cidade_uf' => $boletoResponse->getCidade().'-'.$boletoResponse->getUf(),
+            'cidade' => $boletoResponse->getCidade(),
+            'uf' => $boletoResponse->getUf(),
             'cedente' => $boletoResponse->getNomeBeneficiario(),
             'logo_empresa' => $boletoResponse->getLogo(),
+            'pix_qrcode' => $boletoResponse->getPixQrCode(),
             'arquivo' => $this->boleto
         ];
     }

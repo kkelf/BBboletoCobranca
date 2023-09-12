@@ -20,22 +20,22 @@ use Illuminate\Support\Arr;
  */
 class BancoDoBrasil
 {
-    /**
-     * @var Entities\OAuthEntity 
-     */
+	/**
+	 * @var Entities\OAuthEntity 
+	 */
 	private $authorization;
 
-    /**
-     * @var array
-     */
+	/**
+	 * @var array
+	 */
 	private $config;
 
 	/**
-	*
-	* @param [array|config]
-	* @return bool
-	*/
-  	function __construct(array $config)
+	 *
+	 * @param [array|config]
+	 * @return bool
+	 */
+	function __construct(array $config)
 	{
 		$bancoDoBrasilValidate = new BancoDoBrasilValidate();
 		$bancoDoBrasilValidate->config($config);
@@ -46,27 +46,29 @@ class BancoDoBrasil
 		$this->authorization = $serviceAuthorization->authorize($config);
 	}
 
-    /**
-     * @param BoletoRequest $boletoRequest
-     * @return mixed
-     * @throws BoletoException
-     */
+	/**
+	 * @param BoletoRequest $boletoRequest
+	 * @return mixed
+	 * @throws BoletoException
+	 */
 	public function register(BoletoRequest $boletoRequest)
 	{
-    	$serviveRegister = new ServiceRegister();
-    	$boleto = $serviveRegister->register($boletoRequest, $this->authorization);
-    	$boleto->setLogo(Arr::get($this->config, 'logo', 'http://placehold.it/200&text=logo'));
+		$serviveRegister = new ServiceRegister();
+		$boleto = $serviveRegister->register($boletoRequest, $this->authorization);
+		$boleto->setLogo(Arr::get($this->config, 'logo', 'http://placehold.it/200&text=logo'));
 
-    	if(!$boleto instanceof BoletoResponse)
-    		throw new BoletoException("Não foi possivel gerar boleto");
+		if (!$boleto instanceof BoletoResponse)
+			throw new BoletoException("Não foi possivel gerar boleto");
 
-    	$data = null;
-    	if(Arr::get($this->config, 'formato') == Formato::PDF) 
-    		$data = (new ServiceLayoutBoleto)->dataToPdf($boleto);
+		$data = null;
+		if (Arr::get($this->config, 'formato') == Formato::PDF)
+			$data = (new ServiceLayoutBoleto)->dataToPdf($boleto);
 
-    	if(Arr::get($this->config, 'formato') == Formato::HTML) 
-    		$data = (new ServiceLayoutBoleto)->dataToHtml($boleto);
+		if (Arr::get($this->config, 'formato') == Formato::HTML)
+			$data = (new ServiceLayoutBoleto)->dataToHtml($boleto);
 
-		return $data;
+		$serialize = Fractal::item($boleto, new BoletoTransformer($this->config, $data));
+
+		return $serialize->toArray();
 	}
 }

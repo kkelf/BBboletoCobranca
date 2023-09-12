@@ -78,7 +78,7 @@ class ServiceLayoutBoleto
 	            'imageUrl' => dirname(__DIR__, 2)."/resources/images"
 	        ]);
 
-	      	$factory->makeBoletoAsPDF(BoletoFactory::BANCO_DO_BRASIL, $data);
+	      	return $factory->makeBoletoAsPDF(BoletoFactory::BANCO_DO_BRASIL, $data);
         }catch(\Exception $e){
             return null;
         }
