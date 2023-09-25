@@ -61,7 +61,8 @@ class BoletoClient
 				return $response;
 			}
 		} catch(ClientException $e) {
-			throw new Exception($e->getMessage());
+			$response = $e->getResponse();
+			throw new Exception($response->getBody()->getContents());
 		}
 
 		throw new Exception();
