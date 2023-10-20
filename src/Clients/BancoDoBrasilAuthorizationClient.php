@@ -76,9 +76,9 @@ class BancoDoBrasilAuthorizationClient
               	return $oauth;
             }
         } catch(\Exception $e) {
-			throw new OAuthException();
+			throw new OAuthException($e->getMessage());
         }
 
-        throw new OAuthException();
+        throw new OAuthException("Não foi possivel obter detalhes do erro");
     }
 }
