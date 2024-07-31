@@ -70,6 +70,7 @@ class BoletoFactory {
     public function makeBoletoAsPDF($banco, $data)
     {
         $html = $this->makeBoletoAsHTML($banco, $data);
+        $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
         
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
