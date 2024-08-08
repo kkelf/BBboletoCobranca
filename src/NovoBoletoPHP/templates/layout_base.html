@@ -83,7 +83,7 @@
 
       #instr_content .qrcode {
         width: 666px;
-        height:150px;
+        height:185px;
         margin: 0px auto;
         border-top: 1px black dashed;
         font-weight: bold;
@@ -122,6 +122,22 @@
 
       #instr_content .qrcode .description .value{
         font-size: 20px;
+      }
+
+      #instr_content .qrcode .pix_copia_cola_container {
+        font-size:12px; 
+        text-align: left; 
+        bottom: 5px; 
+        position: absolute;
+        width: 100%;
+      }
+
+      #instr_content .qrcode .pix_copia_cola_container .url_qr_code{
+        padding: 5px;
+        margin-top: 2px;
+        font-size:8px; 
+        background-color: #ffffcc;
+        width: 650px;
       }
       /* *** BOLETO *** */
       
@@ -420,6 +436,10 @@
               <div class="title">Pague esta cobrança com PIX</div>
               <div class="valueTitle">Valor do documento</div>
               <div class="value">R$ {{ valor_boleto }}</div>
+            </div>
+            <div class="pix_copia_cola_container">
+              PIX copia e cola
+              <div class="url_qr_code">&nbsp;{{ pix_qrcode }}</div>
             </div>
           </div>
           {% endif %}
