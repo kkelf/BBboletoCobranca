@@ -55,7 +55,7 @@ class ServiceLayoutBoleto
 
 		try {
 			$factory = new BoletoFactory([
-	            'cachePath' => '/tmp',
+	            'cachePath' => '/tmp/1_0_10',
 	            'imageUrl' => dirname(__DIR__, 2)."/resources/images"
 	        ]);
 
@@ -74,7 +74,7 @@ class ServiceLayoutBoleto
 
 		try {
 			$factory = new BoletoFactory([
-	            'cachePath' => '/tmp',
+	            'cachePath' => '/tmp/1_0_10',
 	            'imageUrl' => dirname(__DIR__, 2)."/resources/images"
 	        ]);
 
