@@ -3,7 +3,7 @@
 namespace BBboletoCobranca\Rest\Clients;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\BadResponseException;
 use BBboletoCobranca\Entities\OAuthEntity;
 use BBboletoCobranca\Rest\Config;
 use Exception;
@@ -25,8 +25,7 @@ class BoletoClient
 	function __construct(OAuthEntity $oAuthEntity)
 	{
 		$this->httpClient = new Client([
-			'verify' => false, //Remover o verify em produção
-			'Content-Type' => 'application/json'
+			'verify' => false //Remover o verify em produção
 		]); 
 
 		$this->endpoint = $oAuthEntity->getEnvironment() == false
@@ -34,6 +33,8 @@ class BoletoClient
 			: Config::ENDPOINT_PRODUCTION;
 
 		$this->headers = [
+			'accept' => 'application/json',
+			'Content-Type' => 'application/json',
 			'Authorization' => "Bearer {$oAuthEntity->getAccessToken()}"
 		];
 
@@ -52,7 +53,7 @@ class BoletoClient
 			$responseBoleto = $this->httpClient->post("$this->endpoint/boletos", [
 				'headers' => $this->headers,
 				'query' => $this->query,
-				'form_params' => $boletoBody
+				'body' => json_encode($boletoBody)
 			]);
 			
 			$response = json_decode($responseBoleto->getBody());
@@ -60,7 +61,7 @@ class BoletoClient
 			if ($response && !empty($response->numero)) {
 				return $response;
 			}
-		} catch(ClientException $e) {
+		} catch(BadResponseException  $e) {
 			$response = $e->getResponse();
 			throw new Exception($response->getBody()->getContents());
 		}
