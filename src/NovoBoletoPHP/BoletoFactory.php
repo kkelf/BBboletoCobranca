@@ -71,6 +71,10 @@ class BoletoFactory {
     {
         $html = $this->makeBoletoAsHTML($banco, $data);
         $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+        $html = preg_replace(
+            '/<meta[^>]*charset=[^>]*>/i',
+            '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">',
+            $html);
         
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);
