@@ -1,4 +1,6 @@
-<?php namespace BBboletoCobranca\Transformers;
+<?php
+
+namespace BBboletoCobranca\Transformers;
 
 use League\Fractal;
 use BBboletoCobranca\Services\ServiceLayoutBoleto;
@@ -6,25 +8,25 @@ use BBboletoCobranca\Helpers\BancoDoBrasil as BancoDoBrasilHelper;
 use BBboletoCobranca\Responses\BoletoResponse;
 
 class BoletoTransformer extends Fractal\TransformerAbstract
-{   
+{
 
     /**
-    *
-    * @var 
-    */
+     *
+     * @var 
+     */
     private $boleto;
     private $cachePath;
-	
+
     /**
-    *
-    * @param [array]
-    * @param [string]
-    */
+     *
+     * @param [array]
+     * @param [string]
+     */
 
     function __construct(array $config, string $boleto)
     {
         $this->boleto = $boleto;
-        $this->cachePath = data_get($config,'cachePath', false);
+        $this->cachePath = data_get($config, 'cachePath', false);
     }
 
     /**
@@ -34,7 +36,7 @@ class BoletoTransformer extends Fractal\TransformerAbstract
      */
     public function transform(BoletoResponse $boletoResponse)
     {
-        
+
         $instrucoes = $boletoResponse->getInstrucoes()->getInstrucoes();
 
         return [
@@ -51,8 +53,8 @@ class BoletoTransformer extends Fractal\TransformerAbstract
             'sacado' => $boletoResponse->getPagador()->getNome(),
             'sacado_tipo_documento' => $boletoResponse->getPagador()->getTipoDocumento(),
             'sacado_documento' => $boletoResponse->getPagador()->getDocumento(),
-            'endereco1' => $boletoResponse->getPagador()->getLogradouro().','.$boletoResponse->getPagador()->getBairro(),
-            'endereco2' => $boletoResponse->getPagador()->getMunicipio().' - '.$boletoResponse->getPagador()->getUf().' - CEP '.$boletoResponse->getPagador()->getCep(),
+            'endereco1' => $boletoResponse->getPagador()->getLogradouro() . ',' . $boletoResponse->getPagador()->getBairro(),
+            'endereco2' => $boletoResponse->getPagador()->getMunicipio() . ' - ' . $boletoResponse->getPagador()->getUf() . ' - CEP ' . $boletoResponse->getPagador()->getCep(),
             'demonstrativo1' => $boletoResponse->getInstrucoes()->getDemonstrativo(),
             'instrucoes' => $instrucoes,
             'aceite' => $boletoResponse->getAceite(),
@@ -68,6 +70,7 @@ class BoletoTransformer extends Fractal\TransformerAbstract
             'cedente' => $boletoResponse->getNomeBeneficiario(),
             'logo_empresa' => $boletoResponse->getLogo(),
             'pix_qrcode' => $boletoResponse->getPixQrCode(),
+            'linha_digitavel' => $boletoResponse->getLinhaDigitavel(),
             'arquivo' => $this->boleto
         ];
     }
