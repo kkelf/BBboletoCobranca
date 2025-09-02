@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace BBboletoCobranca\Factories;
 
@@ -9,10 +9,10 @@ use BBboletoCobranca\Responses\BoletoResponse;
 class BoletoResponseFactory
 {
 	/**
-	*
-	* @param BBboletoCobranca\Requests\BoletoRequest
-	* @param StdClass
-	*/
+	 *
+	 * @param BBboletoCobranca\Requests\BoletoRequest
+	 * @param StdClass
+	 */
 	public function make(BoletoRequest $boletoRequest, StdClass $objectBoleto)
 	{
 		$logradouro = $boletoRequest->getBeneficiario()->getLogradouro();
@@ -39,11 +39,12 @@ class BoletoResponseFactory
 			->setContaDigito('0')
 			->setNomeBeneficiario($boletoRequest->getBeneficiario()->getNome())
 			->setDocumento($boletoRequest->getBeneficiario()->getDocumento())
-			->setEndereco($logradouro?$logradouro:$objectBoleto->beneficiario->logradouro)
-			->setCidade($municipio?$municipio:$objectBoleto->beneficiario->cidade)
-			->setUf($uf? $uf:$objectBoleto->beneficiario->uf)
-			->setPixQrCode($objectBoleto->qrCode->emv);
+			->setEndereco($logradouro ? $logradouro : $objectBoleto->beneficiario->logradouro)
+			->setCidade($municipio ? $municipio : $objectBoleto->beneficiario->cidade)
+			->setUf($uf ? $uf : $objectBoleto->beneficiario->uf)
+			->setPixQrCode($objectBoleto->qrCode->emv)
+			->setLinhaDigitavel($objectBoleto->linhaDigitavel);
 
-		return $response;	
+		return $response;
 	}
 }

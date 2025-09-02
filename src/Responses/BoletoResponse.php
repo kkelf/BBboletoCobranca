@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace BBboletoCobranca\Responses;
 
@@ -7,7 +7,7 @@ use BBboletoCobranca\Entities\InstrucoesEntity;
 
 class BoletoResponse
 {
-	private $nossoNumero; 
+	private $nossoNumero;
 
 	private $inicioNossoNumero;
 
@@ -61,320 +61,314 @@ class BoletoResponse
 
 	private $pix_qrcode;
 
+	private $linha_digitavel;
+
 	public function getNossoNumero()
 	{
-	    return $this->nossoNumero;
+		return $this->nossoNumero;
 	}
-	 
+
 	public function setNossoNumero($nossoNumero)
 	{
-	    $this->nossoNumero = $nossoNumero;
-	    return $this;
+		$this->nossoNumero = $nossoNumero;
+		return $this;
 	}
 
 	public function getInicioNossoNumero()
 	{
-	    return $this->inicioNossoNumero;
+		return $this->inicioNossoNumero;
 	}
-	 
+
 	public function setInicioNossoNumero($inicioNossoNumero)
 	{
-	    $this->inicioNossoNumero = $inicioNossoNumero;
-	    return $this;
+		$this->inicioNossoNumero = $inicioNossoNumero;
+		return $this;
 	}
 
 	public function getNumeroDocumento()
 	{
-	    return $this->numeroDocumento;
+		return $this->numeroDocumento;
 	}
-	 
+
 	public function setNumeroDocumento($numeroDocumento)
 	{
-	    $this->numeroDocumento = $numeroDocumento;
-	    return $this;
+		$this->numeroDocumento = $numeroDocumento;
+		return $this;
 	}
 
 	public function getVencimento()
 	{
-	    return $this->vencimento;
+		return $this->vencimento;
 	}
-	 
+
 	public function setVencimento($vencimento)
 	{
-	    $this->vencimento = $vencimento;
-	    return $this;
+		$this->vencimento = $vencimento;
+		return $this;
 	}
 
 	public function getEmissao()
 	{
-	    return $this->emissao;
+		return $this->emissao;
 	}
-	 
+
 	public function setEmissao($emissao)
 	{
-	    $this->emissao = $emissao;
-	    return $this;
+		$this->emissao = $emissao;
+		return $this;
 	}
 
 
 	public function getProcessamento()
 	{
-	    return $this->processamento;
+		return $this->processamento;
 	}
-	 
+
 	public function setProcessamento($processamento)
 	{
-	    $this->processamento = $processamento;
-	    return $this;
+		$this->processamento = $processamento;
+		return $this;
 	}
 
 	public function getValor()
 	{
-	    return $this->valor;
+		return $this->valor;
 	}
-	 
+
 	public function setValor($valor)
 	{
-	    $this->valor = $valor;
-	    return $this;
+		$this->valor = $valor;
+		return $this;
 	}
 
 	public function getConvenio()
 	{
-	    return $this->convenio;
+		return $this->convenio;
 	}
-	 
+
 	public function setConvenio($convenio)
 	{
-	    $this->convenio = $convenio;
-	    return $this;
+		$this->convenio = $convenio;
+		return $this;
 	}
 
 	public function getContrato()
 	{
-	    return $this->contrato;
+		return $this->contrato;
 	}
-	 
+
 	public function setContrato($contrato)
 	{
-	    $this->contrato = $contrato;
-	    return $this;
+		$this->contrato = $contrato;
+		return $this;
 	}
 
 	public function getCarteira()
 	{
-	    return $this->carteira;
+		return $this->carteira;
 	}
-	 
+
 	public function setCarteira($carteira)
 	{
-	    $this->carteira = $carteira;
-	    return $this;
+		$this->carteira = $carteira;
+		return $this;
 	}
 
 	public function getVariacaoCarteira()
 	{
-	    return $this->variacaoCarteira;
+		return $this->variacaoCarteira;
 	}
-	 
+
 	public function setVariacaoCarteira($variacaoCarteira)
 	{
-	    $this->variacaoCarteira = $variacaoCarteira;
-	    return $this;
+		$this->variacaoCarteira = $variacaoCarteira;
+		return $this;
 	}
 
 	public function getEspecieTitulo()
 	{
-	    return $this->especieTitulo;
+		return $this->especieTitulo;
 	}
-	 
+
 	public function setEspecieTitulo($especieTitulo)
 	{
-	    $this->especieTitulo = $especieTitulo;
-	    return $this;
+		$this->especieTitulo = $especieTitulo;
+		return $this;
 	}
 
 	public function getPagador()
 	{
-	    return $this->pagador;
+		return $this->pagador;
 	}
-	 
+
 	public function setPagador(PagadorEntity $pagador)
 	{
-	    $this->pagador = $pagador;
-	    return $this;
+		$this->pagador = $pagador;
+		return $this;
 	}
 
 	public function getDemonstrativo()
 	{
-	    return $this->demonstrativo;
+		return $this->demonstrativo;
 	}
-	 
+
 	public function setDemonstrativo($demonstrativo)
 	{
-	    $this->demonstrativo = $demonstrativo;
-	    return $this;
+		$this->demonstrativo = $demonstrativo;
+		return $this;
 	}
 
 	public function getInstrucoes()
 	{
-	    return $this->instrucoes;
+		return $this->instrucoes;
 	}
-	 
+
 	public function setInstrucoes(InstrucoesEntity $instrucoes)
 	{
-	    $this->instrucoes = $instrucoes;
-	    return $this;
+		$this->instrucoes = $instrucoes;
+		return $this;
 	}
 
 	public function getAceite()
 	{
-	    return $this->aceite;
+		return $this->aceite;
 	}
-	 
+
 	public function setAceite($aceite)
 	{
-	    $this->aceite = $aceite;
-	    return $this;
+		$this->aceite = $aceite;
+		return $this;
 	}
 
 	public function getMoeda()
 	{
-	    return $this->moeda;
+		return $this->moeda;
 	}
-	 
+
 	public function setMoeda($moeda)
 	{
-	    $this->moeda = $moeda;
-	    return $this;
+		$this->moeda = $moeda;
+		return $this;
 	}
 
 	public function getAgencia()
 	{
-	    return $this->agencia;
+		return $this->agencia;
 	}
-	 
+
 	public function setAgencia($agencia)
 	{
-	    $this->agencia = $agencia;
-	    return $this;
+		$this->agencia = $agencia;
+		return $this;
 	}
 
 	public function getConta()
 	{
-	    return $this->conta;
+		return $this->conta;
 	}
-	 
+
 	public function setConta($conta)
 	{
-	    $this->conta = $conta;
-	    return $this;
+		$this->conta = $conta;
+		return $this;
 	}
 
 	public function getContaDigito()
 	{
-	    return $this->contaDigito;
+		return $this->contaDigito;
 	}
-	 
+
 	public function setContaDigito($contaDigito)
 	{
-	    $this->contaDigito = $contaDigito;
-	    return $this;
+		$this->contaDigito = $contaDigito;
+		return $this;
 	}
 
 	public function getNomeBeneficiario()
 	{
-	    return $this->nomeBeneficiario;
+		return $this->nomeBeneficiario;
 	}
-	 
+
 	public function setNomeBeneficiario($nomeBeneficiario)
 	{
-	    $this->nomeBeneficiario = $nomeBeneficiario;
-	    return $this;
+		$this->nomeBeneficiario = $nomeBeneficiario;
+		return $this;
 	}
 
 	public function getDocumento()
 	{
-	    return $this->documento;
+		return $this->documento;
 	}
-	 
+
 	public function setDocumento($documento)
 	{
-	    $this->documento = $documento;
-	    return $this;
+		$this->documento = $documento;
+		return $this;
 	}
 
 	public function getEndereco()
 	{
-	    return $this->endereco;
+		return $this->endereco;
 	}
-	 
+
 	public function setEndereco($endereco)
 	{
-	    $this->endereco = $endereco;
-	    return $this;
+		$this->endereco = $endereco;
+		return $this;
 	}
 
 	public function getCidade()
 	{
-	    return $this->cidade;
+		return $this->cidade;
 	}
-	 
+
 	public function setCidade($cidade)
 	{
-	    $this->cidade = $cidade;
-	    return $this;
+		$this->cidade = $cidade;
+		return $this;
 	}
 
 	public function getUf()
 	{
-	    return $this->uf;
+		return $this->uf;
 	}
-	 
+
 	public function setUf($uf)
 	{
-	    $this->uf = $uf;
-	    return $this;
+		$this->uf = $uf;
+		return $this;
 	}
 
 	public function getLogo()
 	{
-	    return $this->logo;
+		return $this->logo;
 	}
-	 
+
 	public function setLogo($logo)
 	{
-	    $this->logo = $logo;
-	    return $this;
+		$this->logo = $logo;
+		return $this;
 	}
 
 	public function getPixQrCode()
 	{
-	    return $this->pix_qrcode;
+		return $this->pix_qrcode;
 	}
-	 
+
 	public function setPixQrCode($pix_qrcode)
 	{
-	    $this->pix_qrcode = $pix_qrcode;
-	    return $this;
+		$this->pix_qrcode = $pix_qrcode;
+		return $this;
+	}
+
+	public function getLinhaDigitavel()
+	{
+		return $this->linha_digitavel;
+	}
+
+	public function setLinhaDigitavel($linha_digitavel)
+	{
+		$this->linha_digitavel = $linha_digitavel;
+		return $this;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
